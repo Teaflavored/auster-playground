@@ -12,7 +12,7 @@ export const EPOCH_SORT_KEYS = Object.freeze({
   totalDelegatorRewards: "totalDelegatorRewards",
 });
 
-export const EPOCH_PER_PAGE = 25;
+export const EPOCH_PER_PAGE = 10;
 
 export const EPOCH_FIELDS = Object.freeze([
   {
