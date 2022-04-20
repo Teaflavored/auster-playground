@@ -67,7 +67,7 @@ export function EpochsTable() {
         </Box>
       ) : (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 600 }}>
+          <Table sx={{ minWidth: 588 }}>
             <TableHead>
               <TableRow>
                 {EPOCH_FIELDS.map(({ key, label, isSortable, sortKey }) => (
