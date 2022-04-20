@@ -1,8 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const EPOCHES_QUERY = gql`
-  query getEpoches($skip: Int, $first: Int, $orderBy: Epoch_orderBy) {
-    epoches(skip: $skip, first: $first, orderBy: $orderBy) {
+  query getEpoches(
+    $skip: Int
+    $first: Int
+    $orderBy: Epoch_orderBy
+    $orderDirection: OrderDirection
+  ) {
+    epoches(
+      skip: $skip
+      first: $first
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
       id
       startBlock
       endBlock

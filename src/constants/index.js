@@ -19,23 +19,26 @@ export const EPOCH_FIELDS = Object.freeze([
     key: "id",
     label: "id",
     isBigInt: false,
+    isSortable: true,
+    sortKey: EPOCH_SORT_KEYS.id,
   },
   {
     key: "startBlock",
     label: "Start Block",
     isBigInt: true,
+    isSortable: true,
+    sortKey: EPOCH_SORT_KEYS.startBlock,
   },
   {
     key: "endBlock",
     label: "End Block",
     isBigInt: true,
+    isSortable: true,
+    sortKey: EPOCH_SORT_KEYS.endBlock,
   },
 ]);
 
-export const EPOCH_FIELD_TO_LABEL = EPOCH_FIELDS.reduce(
-  (result, fieldConfig) => ({
-    ...result,
-    [fieldConfig.key]: fieldConfig.label,
-  }),
-  {}
-);
+export const EPOCH_SORT_BY_DIRECTION = Object.freeze({
+  ASC: "asc",
+  DESC: "desc",
+});

@@ -7,7 +7,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TableCell,
   TableBody,
 } from "@mui/material";
 import { useQuery } from "@apollo/client";
@@ -16,18 +15,26 @@ import { EPOCHES_QUERY } from "../../apollo/queries";
 import {
   EPOCH_PER_PAGE,
   EPOCH_FIELDS,
-  EPOCH_FIELD_TO_LABEL,
   EPOCH_SORT_KEYS,
+  EPOCH_SORT_BY_DIRECTION,
 } from "../../constants";
 import { EpochsRow } from "../EpochsRow";
+import { EpochsHeader } from "../EpochsHeader";
 
 export function EpochsTable() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentSortKey, setCurrentSortKey] = useState(
+    EPOCH_SORT_KEYS.startBlock
+  );
+  const [currentSortDirection, setCurrentSortDirection] = useState(
+    EPOCH_SORT_BY_DIRECTION.ASC
+  );
   const { data, loading } = useQuery(EPOCHES_QUERY, {
     variables: {
       first: EPOCH_PER_PAGE,
       skip: (currentPage - 1) * EPOCH_PER_PAGE,
-      orderBy: EPOCH_SORT_KEYS.startBlock,
+      orderBy: currentSortKey,
+      orderDirection: currentSortDirection,
     },
   });
   const epoches = data?.epoches || [];
@@ -38,8 +45,19 @@ export function EpochsTable() {
         <Table sx={{ minWidth: 600 }}>
           <TableHead>
             <TableRow>
-              {EPOCH_FIELDS.map(({ key }) => (
-                <TableCell key={key}>{EPOCH_FIELD_TO_LABEL[key]}</TableCell>
+              {EPOCH_FIELDS.map(({ key, label, isSortable, sortKey }) => (
+                <EpochsHeader
+                  key={key}
+                  currentSortKey={currentSortKey}
+                  currentSortDirection={currentSortDirection}
+                  sortKey={sortKey}
+                  label={label}
+                  isSortable={isSortable}
+                  onSort={(field, direction) => {
+                    setCurrentSortKey(field);
+                    setCurrentSortDirection(direction);
+                  }}
+                />
               ))}
             </TableRow>
           </TableHead>
